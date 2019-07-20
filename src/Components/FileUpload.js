@@ -29,11 +29,15 @@ export default class FileUpload extends React.Component{
                 {
                     let values = line.split(",");
                     let type = values[4];
-                    let transDate = values[0];
-                    let postDate = values[1];
+                    let transDate = new Date(values[0]);
+                    let postDate = new Date(values[1]);
                     let description = values[2];
                     let category = values[3];
-                    let price = values[5];
+                    let price = -1*Number(values[5]);
+
+                    if(isNaN(price) || price < 0){
+                        return;
+                    }
 
                     trans.push(new Transaction(type, category, description, price, transDate, postDate));
                 }
