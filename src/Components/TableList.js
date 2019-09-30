@@ -1,7 +1,8 @@
 import React from "react"
 import {XYPlot, VerticalGridLines, HorizontalGridLines, VerticalBarSeries, BarSeries, XAxis, YAxis} from 'react-vis'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import {getCategory} from '../Helpes/helper'
+import {getCategoryHierarchy, ListedCategories} from '../Helpers/helper'
+import * as Constants from '../Helpers/Constants'
 
 export default class TableList extends React.Component{
     constructor(props){
@@ -15,27 +16,16 @@ export default class TableList extends React.Component{
 
     render(){
         let trans = this.props.trans;
-        let label = this.props.label;
 
         let rows = [];
         trans.forEach(function(element){
-
-            let cat = getCategory(element.Description);
-            if(cat == null){
-                return;
-            }
-
-            cat = cat.category;
-
-            if(cat == label || label == ""){
-                rows.push(
-                    {
-                        key: rows.length,
-                        Description: element.Description,
-                        Price: element.Price,
-                        Date: element.TransDate
-                    });
-            }
+            rows.push(
+                {
+                    key: rows.length,
+                    Description: element.Description,
+                    Price: element.Price,
+                    Date: element.TransDate
+                });
         });
 
         return <div>

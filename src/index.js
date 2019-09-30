@@ -14,15 +14,14 @@ class App extends React.Component {
   }
 
   onDataCompleted(transactions){
-    console.log(transactions);
     this.setState({trans: transactions})
   }
 
   render() {
     return (
       <div>
-        <SpendingPieChart transactions={this.state.trans} />
         <FileUpload onDataCompleted={this.onDataCompleted}/>
+        <SpendingPieChart transactions={this.state.trans} />
       </div>
     );
   }

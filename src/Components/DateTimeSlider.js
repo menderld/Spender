@@ -7,10 +7,6 @@ import Slider, { createSliderWithTooltip } from 'rc-slider';
 
 const style = { width: 600, margin: 50 };
 
-function log(value) {
-  console.log(value); //eslint-disable-line
-}
-
 
 function percentFormatter(v) {
   return `${v} %`;

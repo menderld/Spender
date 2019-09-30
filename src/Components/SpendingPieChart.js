@@ -3,11 +3,9 @@ import React from 'react'
 import {RadialChart, Hint, LabelSeries} from 'react-vis';
 import TableList from './TableList'
 import TimeRangeSpendingComponent from './TimeRangeSpendingComponent'
-//import DatePicker from 'react-datepicker';
-import {groupDataByCategory} from '../Helpes/helper'
-import { SSL_OP_NO_QUERY_MTU } from 'constants';
+import {groupDataByCategory, ListedCategories} from '../Helpers/helper'
 import ToggleSwitchDate from './ToggleSwitchDate';
-import * as Constants from '../Helpes/Constants'
+import * as Constants from '../Helpers/Constants'
 
 export default class SpendingPieChart extends React.Component{
     constructor(props){
@@ -41,8 +39,8 @@ export default class SpendingPieChart extends React.Component{
     onClick(v){
         let label = v.label;
         let res = this.state.groupedData;
-
         const data = this.state.itemsByCat;
+
         for(var item in data)
         {
             if(item == label)
@@ -51,14 +49,13 @@ export default class SpendingPieChart extends React.Component{
                 break;
             }
         }
-
         this.setState({transactions:res, currentLabel:label});
     }
 
     groupData(){
         const {transactions} = this.props;
         var totalExpenses = 0.0;
-        let [expensesByCat, itemsByCat] = groupDataByCategory(transactions);
+        let [expensesByCat, itemsByCat] = groupDataByCategory(transactions, ListedCategories);
         var finalResult = [];
 
         for (var item in expensesByCat)
@@ -71,6 +68,7 @@ export default class SpendingPieChart extends React.Component{
     }
 
     render(){
+        //console.log(this.state.dataToShow)
         return (
                 <div className="container">
 
@@ -94,10 +92,10 @@ export default class SpendingPieChart extends React.Component{
                                 <LabelSeries data={[{x:0,y:0, label:this.state.totalExpenses.toFixed(2)}]}/>
                             </RadialChart>
                         </div>
-                        <div className="col">
+                        {/* <div className="col">
                             <ToggleSwitchDate onDateOptionChange={(option)=> this.setState({dateGroupingChoice:option})}/>
                             <TimeRangeSpendingComponent transactions={this.state.transactions} dateGroupingChoice={this.state.dateGroupingChoice}/>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="row">
                         <div className="col">

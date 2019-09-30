@@ -1,8 +1,8 @@
 import React from "react"
 import {BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {XYPlot, XAxis, YAxis, Hint, HorizontalGridLines, VerticalGridLines, LineSeries} from 'react-vis'
-import {partitionByRange} from '../Helpes/helper'
-import * as Constants from '../Helpes/Constants'
+import {partitionByRange} from '../Helpers/helper'
+import * as Constants from '../Helpers/Constants'
 
 export default class TimeRangeSpendingComponent extends React.Component{
     constructor(props){
@@ -32,10 +32,12 @@ export default class TimeRangeSpendingComponent extends React.Component{
     */
     formatData(groupedTransactions){
         let data = [];
-
-        for(var index in groupedTransactions){
-            let number = groupedTransactions[index].values.reduce((a,b) => a + b.Price, 0)
-            data.push({"x": index, "y": Math.round(number), "date": groupedTransactions[index].date});
+        if(groupedTransactions != undefined && groupedTransactions.length > 0)
+        {
+            groupedTransactions.forEach(function(element, index){
+                let number = element.values.reduce((a,b) => a + b.Price, 0)
+                data.push({"x": index, "y": Math.round(number), "date": element.date});
+            });
         }
 
         return data;
@@ -44,6 +46,8 @@ export default class TimeRangeSpendingComponent extends React.Component{
     render(){
         let data = this.formatData(partitionByRange(this.state.transactions, this.state.dateGroupingChoice));
         let mx = data.reduce((a,b)=> Math.max(a, b["y"]), 0)
+
+        const state = this.state;
 
         return (
         <XYPlot dontCheckIfEmpty={true} xType="ordinal" width={Math.max(Math.min(data.length*30, 400), 400)}  height={200}
@@ -55,7 +59,7 @@ export default class TimeRangeSpendingComponent extends React.Component{
             <VerticalGridLines/>
             <LineSeries data={(data.length == 0) ? null : data} onNearestXY={(p, info) => this.setState({hoverPoint:p})}  getNull={(d) => d.y !== null}/>
             {this.state.hoverPoint !== null &&
-                 <Hint value={this.state} format={function(state){return [{"title": `${state.dateGroupingChoice} ${state.hoverPoint.date}`, "value": state.hoverPoint.y}]}} />}
+                 <Hint value={state} format={function(state){return [{"title": `${state.dateGroupingChoice} ${state.hoverPoint.date}`, "value": state.hoverPoint.y}]}} />}
         </XYPlot>)
     }
 }

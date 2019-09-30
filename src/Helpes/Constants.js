@@ -1,1 +1,0 @@
-export const Date_Grouping_Choice = "month"
