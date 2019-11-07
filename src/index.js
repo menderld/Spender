@@ -9,10 +9,12 @@ import {
 } from "react-router-dom";
 
 import Home from '../src/Components/Home'
+import HierarchyEdit from '../src/Components/HierarchyEdit'
 
 ReactDOM.render(
   <BrowserRouter>
-    <Route path="/" component={Home} />
+    <Route exact path="/" component={Home} />
+    <Route exact path="/edit" component={HierarchyEdit}/>
     {/* <Route path="/some/otherpage" component={SomeOtherPage} /> */}
   </BrowserRouter>,
   document.getElementById('app')
