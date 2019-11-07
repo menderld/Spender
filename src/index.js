@@ -1,31 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import SpendingPieChart from './Components/SpendingPieChart'
-import FileUpload from './Components/FileUpload'
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Link,
+  Redirect
+} from "react-router-dom";
 
-class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      trans : []
-    }
+import Home from '../src/Components/Home'
 
-    this.onDataCompleted = this.onDataCompleted.bind(this);
-  }
-
-  onDataCompleted(transactions){
-    this.setState({trans: transactions})
-  }
-
-  render() {
-    return (
-      <div>
-        <FileUpload onDataCompleted={this.onDataCompleted}/>
-        <SpendingPieChart transactions={this.state.trans} />
-      </div>
-    );
-  }
-}
-
-const rootElement = document.getElementById("app");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+  <BrowserRouter>
+    <Route path="/" component={Home} />
+    {/* <Route path="/some/otherpage" component={SomeOtherPage} /> */}
+  </BrowserRouter>,
+  document.getElementById('app')
+)

@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react'
-import {RadialChart, Hint, LabelSeries} from 'react-vis';
+import {RadialChart, Hint, LabelSeries, makeVisFlexible} from 'react-vis';
 import TableList from './TableList'
 import TimeRangeSpendingComponent from './TimeRangeSpendingComponent'
 import {groupDataByCategory, ListedCategories} from '../Helpers/helper'
 import ToggleSwitchDate from './ToggleSwitchDate';
 import * as Constants from '../Helpers/Constants'
+
+const FlexRadialChart=makeVisFlexible(RadialChart)
 
 export default class SpendingPieChart extends React.Component{
     constructor(props){
@@ -71,10 +73,11 @@ export default class SpendingPieChart extends React.Component{
         //console.log(this.state.dataToShow)
         return (
                 <div className="container">
-
-                     <div className="row">
-                        <div className="col">
-                            <RadialChart
+                     <div className="row align-items-start">
+                        <div className="col-4">
+                        </div>
+                        <div className="col-4" >
+                            <FlexRadialChart
                                 className={'SpendingPieChar'}
                                 innerRadius={100}
                                 radius={140}
@@ -90,15 +93,13 @@ export default class SpendingPieChart extends React.Component{
                                 {this.state.value != false &&
                                 <Hint value={this.state.value} format={function(point){return [{value:point.theta.toFixed(2), title:point.label}]}} />}
                                 <LabelSeries data={[{x:0,y:0, label:this.state.totalExpenses.toFixed(2)}]}/>
-                            </RadialChart>
+                            </FlexRadialChart>
                         </div>
-                        {/* <div className="col">
-                            <ToggleSwitchDate onDateOptionChange={(option)=> this.setState({dateGroupingChoice:option})}/>
-                            <TimeRangeSpendingComponent transactions={this.state.transactions} dateGroupingChoice={this.state.dateGroupingChoice}/>
-                        </div> */}
+                        <div className="col-4">
+                        </div>
                     </div>
                     <div className="row">
-                        <div className="col">
+                        <div className="col-12">
                             <TableList trans={this.state.transactions} label={this.state.currentLabel}></TableList>
                         </div>
                     </div>
