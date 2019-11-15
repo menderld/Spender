@@ -227,21 +227,3 @@ export const groupDataByCategory = function(transactions, categories){
     return [expenses, itemsByCat];
 
 }
-
-
-function transform(categories){
-    let res = [];
-
-    let index = 1;
-    for(var key in categories){
-        let g = []
-        for(var t in categories[key]){
-            g.push({"category": ENDING, "transactions": [categories[key][t]]})
-        }
-
-        res.push({ "category": key, "transactions": g});
-    }
-
-
-    console.log(JSON.stringify(res, null, 2));// spacing level = 2
-}

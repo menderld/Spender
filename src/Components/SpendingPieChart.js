@@ -2,9 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react'
 import {RadialChart, Hint, LabelSeries, makeVisFlexible} from 'react-vis';
 import TableList from './TableList'
-import TimeRangeSpendingComponent from './TimeRangeSpendingComponent'
 import {groupDataByCategory, ListedCategories} from '../Helpers/helper'
-import ToggleSwitchDate from './ToggleSwitchDate';
 import * as Constants from '../Helpers/Constants'
 
 const FlexRadialChart=makeVisFlexible(RadialChart)
@@ -33,6 +31,9 @@ export default class SpendingPieChart extends React.Component{
             this.groupData();
         }
     }
+    componentWillMount() {
+        this.groupData();
+    }
 
     onPieHover(v){
         this.setState({value: v});
@@ -55,9 +56,13 @@ export default class SpendingPieChart extends React.Component{
     }
 
     groupData(){
-        const {transactions} = this.props;
+        const {transactions, priceConfig} = this.props;
+
+        if(transactions === undefined || transactions.length == 0){
+            return
+        }
         var totalExpenses = 0.0;
-        let [expensesByCat, itemsByCat] = groupDataByCategory(transactions, ListedCategories);
+        let [expensesByCat, itemsByCat] = groupDataByCategory(transactions, priceConfig);
         var finalResult = [];
 
         for (var item in expensesByCat)
@@ -70,7 +75,6 @@ export default class SpendingPieChart extends React.Component{
     }
 
     render(){
-        //console.log(this.state.dataToShow)
         return (
                 <div className="container">
                      <div className="row align-items-start">
