@@ -1,7 +1,21 @@
-- config editor should be hideable
-- find file button should be better
-- let panel with few option:
-    - edit json
-    - add file
-- allow user login with gmail etc
-- handle better load of files
+UI style
+    - better style for navbar
+
+
+Functionalities:
+    - save config with cntrl+s
+    - save json
+        - to cookies
+        - to machine
+    - no big table but limited size
+    - handle all kind of files format and banks etc
+    - options to know total expenditure/withdrawl
+    - datetimes ranges to define input data period
+    - able to send me comments
+    - help page
+    - add trasaction to category from table itself
+    - other kind of charts
+    - nested levels of json config
+    - allow user login with gmail etc
+    - docker image
+    - kubernetes

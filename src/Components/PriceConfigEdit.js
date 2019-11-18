@@ -10,22 +10,61 @@ import "ace-builds/src-noconflict/theme-github";
 export default class PriceConfigEdit extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            open : false
-        }
 
         this.prettyJson = this.prettyJson.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.saveConfig = this.saveConfig.bind(this);
+
+        this.state = {
+            currentKey: "",
+            currentConfig: this.prettyJson(this.props.priceConfig)
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleKeyPress);
+      }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyPress);
+      }
+
+    componentDidUpdate(prevProps){
+        if(prevProps != this.props){
+            this.setState({currentConfig: this.prettyJson(this.props.priceConfig)});
+        }
+    }
+
+    handleKeyPress(e) {
+        this.setState({currentKey: e.keyCode});
+        if(e.keyCode === 27) {
+          console.log('You just pressed Escape!');
+        }
+        if((e.ctrlKey || e.metaKey) && e.keyCode === 83){
+            e.preventDefault()
+            this.saveConfig(this.state.currentConfig);
+            console.log("control + s key")
+        }
+      }
+
+    saveConfig(config){
+        try{
+            JSON.parse(config)
+            this.props.updatePriceConfig(config);
+        }
+        catch(error){
+            console.log("cannot save json")
+        }
+
     }
 
     onChange(newValue) {
-        try{
-            JSON.parse(newValue)
-            this.props.updatePriceConfig(newValue);
-        }
-        catch(error){
-            //console.log("invalid json")
-        }
+        //this.setState({currentConfig: updatedConfig})
+        //this.saveConfig(newValue)
+        this.setState({currentConfig:newValue})
+
+
     }
 
     prettyJson(text){
@@ -42,9 +81,7 @@ export default class PriceConfigEdit extends React.Component {
 
     render(){
         return (
-            <div>
-                <button onClick={()=> this.setState({open:!this.state.open})}>as</button>
-                <Collapse isOpened={this.state.open} >
+                <Collapse isOpened={this.props.on}>
                         <AceEditor
                         mode="json"
                         theme="monokai"
@@ -61,12 +98,10 @@ export default class PriceConfigEdit extends React.Component {
                         showPrintMargin={true}
                         showGutter={true}
                         highlightActiveLine={true}
-                        value={this.prettyJson(this.props.priceConfig)}
+                        value={this.state.currentConfig}
                         width="100%"
                         />
                 </Collapse>
-            </div>
       );
     }
-
 }

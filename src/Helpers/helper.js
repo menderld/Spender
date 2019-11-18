@@ -113,7 +113,7 @@ export const getCategoryHierarchy = function(item, categories)
 
     let res = {"category": "other", "subCategory": ""};
     for(var cat in categories){
-        if(categories[cat].findIndex(prod=>item.includes(prod)) >= 0){
+        if(categories[cat].findIndex(prod=>prod && prod.length > 0 && item.includes(prod)) >= 0){
             return {"category": cat, "subCategory": categories[cat]};
         }
     }

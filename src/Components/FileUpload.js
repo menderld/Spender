@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {FormControl} from 'react-bootstrap';
 import Transaction from '../Models/Transaction'
 var xlsx = require('xlsx');
 
@@ -53,18 +53,7 @@ export default class FileUpload extends React.Component{
 
     render() {
         return (
-            <div className="custom-file">
-                <input type="file" className="custom-file-input" id="exampleInputFile" onChange={e => this.handleFile(e.target.files[0])} />
-                <label className="custom-file-label" htmlFor="exampleInputFile" data-browse="Your button text">Test</label>
-            </div>
-
-
-            // <label className="btn btn-secondary">
-            //     <input type="file"
-
-            //     accept=".csv"
-            //     onChange={e => this.handleFile(e.target.files[0])}/>
-            // </label>
+            <FormControl className="login-input" className="mr-sm-2" placeholder="Upload" type="file" onChange={(e) => this.handleFile(e.target.files[0])}/>
         );
     }
 }

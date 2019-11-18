@@ -1,7 +1,15 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import React from "react";
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import {setTransactions} from '../reducers/test_reducer'
+import Home from './Home'
+import PriceConfigEdit from './PriceConfigEdit'
+import SidebarLayout from './SidebarLayout'
+import {ListedCategories} from '../Helpers/helper'
+import {setTrans} from '../actions/actions'
+import { connect } from 'react-redux';
+
 
 import {
   BrowserRouter,
@@ -13,19 +21,31 @@ import {
 
 const store = createStore(setTransactions)
 
-import Home from './Home'
-import {ListedCategories} from '../Helpers/helper'
+// const mapStateToProps = function(state){
+//   return {
+//      trans: state.trans,
+//   }
+// }
+
+// const mapDispatchToProps = dispatch => ({
+// ...setTrans,
+// dispatch                // ← Add this
+// })
+
 
 export default class Main extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-        priceConfig: this.prettyJson(ListedCategories)
+        priceConfig: this.prettyJson(ListedCategories),
+        isOpen: false,
+        trans: []
     }
 
     this.updatePriceConfig = this.updatePriceConfig.bind(this)
     this.getPriceConfig = this.getPriceConfig.bind(this)
     this.prettyJson = this.prettyJson.bind(this)
+    this.onDataCompleted = this.onDataCompleted.bind(this);
   }
 
   prettyJson(text){
@@ -40,6 +60,7 @@ export default class Main extends React.Component{
 }
 
   updatePriceConfig(priceConfig){
+    console.log(123);
     this.setState({priceConfig:priceConfig})
   }
 
@@ -47,41 +68,25 @@ export default class Main extends React.Component{
       return this.state.priceConfig;
   }
 
+  onDataCompleted(transactions){
+    store.dispatch(setTrans(transactions));
+    this.setState({trans:transactions})
+}
+
   render(){
     return (
       <Provider store={store}>
-      <BrowserRouter>
-        <div>
-          <Layout>
-            <Switch>
-              <Route exact path="/" render={(props) => <Home {...props} priceConfig={JSON.parse(this.state.priceConfig)} updatePriceConfig={this.updatePriceConfig} />} />
-              {/* <Route exact path="/edit" render={(props) => <PriceConfigEdit {...props} priceConfig={this.state.priceConfig} updatePriceConfig={this.updatePriceConfig}/> }/> */}
-            </Switch>
-          </Layout>
-        </div>
-      </BrowserRouter>
+        <SidebarLayout onDataCompleted={this.onDataCompleted}>
+          <BrowserRouter>
+              <Switch>
+                <Route exact path="/" render={(props) => <Home {...props} trans={this.state.trans} priceConfig={JSON.parse(this.state.priceConfig)} updatePriceConfig={this.updatePriceConfig} />} />
+                <Route exact path="/edit" render={(props) => <PriceConfigEdit {...props} on={true} priceConfig={this.state.priceConfig} updatePriceConfig={this.updatePriceConfig}/> }/>
+              </Switch>
+          </BrowserRouter>
+        </SidebarLayout>
       </Provider>
-
     )
   }
 }
 
-
-//Layout
-const Layout = ({children}) => (
-  <div>
-    <header>
-      <h1>Header</h1>
-    </header>
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/edit">Edit</Link>
-    </nav>
-    <section>
-      {children}
-    </section>
-    <footer>
-      <p>Footer</p>
-    </footer>
-  </div>
-)
+//export default connect(mapStateToProps, mapDispatchToProps)(Main)
