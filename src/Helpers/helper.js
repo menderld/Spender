@@ -1,3 +1,7 @@
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
+export const COOKIE_KEY = "config"
 export const ENDING = "$";
 
 Array.prototype.contains = function(obj) {
@@ -226,4 +230,10 @@ export const groupDataByCategory = function(transactions, categories){
 
     return [expenses, itemsByCat];
 
+}
+
+
+export const saveToCookies = function(config){
+    cookies.set(COOKIE_KEY, config, { path: '/' });
+    console.log(cookies.get(COOKIE_KEY));
 }

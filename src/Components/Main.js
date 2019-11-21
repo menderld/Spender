@@ -1,15 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from "react";
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import {setTransactions} from '../reducers/test_reducer'
 import Home from './Home'
 import PriceConfigEdit from './PriceConfigEdit'
 import SidebarLayout from './SidebarLayout'
 import {ListedCategories} from '../Helpers/helper'
 import {setTrans} from '../actions/actions'
 import { connect } from 'react-redux';
-
+import {store} from '../config'
 
 import {
   BrowserRouter,
@@ -19,7 +17,6 @@ import {
   Redirect,
 } from "react-router-dom";
 
-const store = createStore(setTransactions)
 
 // const mapStateToProps = function(state){
 //   return {

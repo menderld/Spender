@@ -2,6 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavItem, Button, NavDropdown, Form, FormControl} from 'react-bootstrap';
 import React, {Component} from 'react';
 import FileUpload from './FileUpload'
+import {saveToCookies} from '../Helpers/helper'
+import {store} from '../config';
+
 
 export default class SidebarLayout extends Component {
 
@@ -19,6 +22,7 @@ export default class SidebarLayout extends Component {
     }
 
     render() {
+        console.log(store.getState())
         return (
             <div className="container" style={{position:"relative"}}>
                  <Navbar bg="light" expand="lg">
@@ -29,7 +33,7 @@ export default class SidebarLayout extends Component {
                         <Nav.Link href="/">Home</Nav.Link>
                         <NavDropdown title="Config" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/edit">Edit</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Save to Cookies</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2" onClick={()=> saveToCookies("reynaldo")}>Save to Cookies</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Save to file</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
