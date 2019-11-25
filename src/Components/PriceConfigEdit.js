@@ -1,6 +1,9 @@
 import React from "react";
 import AceEditor from "react-ace";
 import {Collapse} from 'react-collapse';
+import {setConfig} from '../actions/actions'
+import {store} from '../config'
+import SaveFileModalComponent from './SaveFileModalComponent'
 
 var ace = require('ace-builds')
 import "ace-builds/src-noconflict/mode-java";
@@ -15,10 +18,12 @@ export default class PriceConfigEdit extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.saveConfig = this.saveConfig.bind(this);
+        this.onModalHide = this.onModalHide.bind(this);
 
         this.state = {
             currentKey: "",
-            currentConfig: this.prettyJson(this.props.priceConfig)
+            currentConfig: this.prettyJson(store.getState().priceConfig),
+            showModal: false
         }
     }
 
@@ -30,41 +35,33 @@ export default class PriceConfigEdit extends React.Component {
         document.removeEventListener('keydown', this.handleKeyPress);
       }
 
-    componentDidUpdate(prevProps){
-        if(prevProps != this.props){
-            this.setState({currentConfig: this.prettyJson(this.props.priceConfig)});
-        }
-    }
-
     handleKeyPress(e) {
         this.setState({currentKey: e.keyCode});
-        if(e.keyCode === 27) {
-          console.log('You just pressed Escape!');
-        }
         if((e.ctrlKey || e.metaKey) && e.keyCode === 83){
             e.preventDefault()
-            this.saveConfig(this.state.currentConfig);
-            console.log("control + s key")
+            if(this.saveConfig(this.state.currentConfig)){
+                this.setState({showModal:true, message:"Config saved", success: true})
+            }
+            else{
+                this.setState({showModal:true, message:"Failed to saved config", success: false})
+            }
         }
       }
 
     saveConfig(config){
         try{
-            JSON.parse(config)
-            this.props.updatePriceConfig(config);
+            let c = JSON.parse(config)
+            store.dispatch(setConfig(c));
+            return true
         }
         catch(error){
             console.log("cannot save json")
+            return false
         }
-
     }
 
     onChange(newValue) {
-        //this.setState({currentConfig: updatedConfig})
-        //this.saveConfig(newValue)
         this.setState({currentConfig:newValue})
-
-
     }
 
     prettyJson(text){
@@ -79,8 +76,14 @@ export default class PriceConfigEdit extends React.Component {
          },2)
     }
 
+    onModalHide(){
+        this.setState({showModal:false})
+    }
+
     render(){
         return (
+            <div>
+                {this.state.showModal && <SaveFileModalComponent onHide={this.onModalHide} message={this.state.message} success={this.state.success}/> }
                 <Collapse isOpened={this.props.on}>
                         <AceEditor
                         mode="json"
@@ -102,6 +105,7 @@ export default class PriceConfigEdit extends React.Component {
                         width="100%"
                         />
                 </Collapse>
+            </div>
       );
     }
 }

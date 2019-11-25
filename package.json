@@ -9,6 +9,7 @@
     "css-loader": "^2.1.1",
     "css-toggle-switch": "^4.1.0",
     "jquery": "^3.4.1",
+    "local-storage": "^2.0.0",
     "moment": "^2.24.0",
     "popper.js": "^1.15.0",
     "precss": "^4.0.0",
@@ -33,7 +34,6 @@
     "redux": "^4.0.4",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "universal-cookie": "^4.0.2",
     "xlsx": "^0.14.2"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.12.0",
     "redux-devtools": "^3.5.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",

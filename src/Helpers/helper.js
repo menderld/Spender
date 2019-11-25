@@ -1,7 +1,6 @@
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+import ls from 'local-storage'
 
-export const COOKIE_KEY = "config"
+export const CONFIG_KEY = "config"
 export const ENDING = "$";
 
 Array.prototype.contains = function(obj) {
@@ -232,8 +231,16 @@ export const groupDataByCategory = function(transactions, categories){
 
 }
 
+export const saveToLocalStorage = function(config){
+    config = JSON.stringify(config)
+    ls.set(CONFIG_KEY, config)
+}
 
-export const saveToCookies = function(config){
-    cookies.set(COOKIE_KEY, config, { path: '/' });
-    console.log(cookies.get(COOKIE_KEY));
+export const getConfigFromLocalStorage = function(){
+    let c = ls.get(CONFIG_KEY)
+    if(c == 'undefined'){
+        return c
+    }
+
+    return JSON.parse(c)
 }

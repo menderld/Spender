@@ -1,13 +1,13 @@
 UI style
     - better style for navbar
 
-
 Functionalities:
-    - save config with cntrl+s
     - save json
-        - to cookies
         - to machine
+    - give color(green-red) to modal on save
     - no big table but limited size
+    - make month selector like mint.com
+    - month/date/day selector for transactions
     - handle all kind of files format and banks etc
     - options to know total expenditure/withdrawl
     - datetimes ranges to define input data period
@@ -19,3 +19,10 @@ Functionalities:
     - allow user login with gmail etc
     - docker image
     - kubernetes
+
+--------DONE-----------
+    - save config with cntrl+s
+    - save json
+        - to localstorage
+    - keep chart when page changes
+    - pop up on json save(fail or success)
