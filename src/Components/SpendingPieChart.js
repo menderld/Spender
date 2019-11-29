@@ -31,7 +31,7 @@ export default class SpendingPieChart extends React.Component{
             this.groupData();
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         this.groupData();
     }
 

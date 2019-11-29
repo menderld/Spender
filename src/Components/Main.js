@@ -36,7 +36,7 @@ export default class Main extends React.Component{
     this.onDataCompleted = this.onDataCompleted.bind(this);
 
     var config = getConfigFromLocalStorage();
-    store.dispatch(setConfig((config && config != 'undefined') ? JSON.parse(config) : ListedCategories));
+    store.dispatch(setConfig((config && config != 'undefined') ? config : ListedCategories));
     store.dispatch(setTrans())
   }
 

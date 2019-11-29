@@ -2,6 +2,7 @@ UI style
     - better style for navbar
 
 Functionalities:
+    - nested levels of json config
     - save json
         - to machine
     - give color(green-red) to modal on save
@@ -15,7 +16,6 @@ Functionalities:
     - help page
     - add trasaction to category from table itself
     - other kind of charts
-    - nested levels of json config
     - allow user login with gmail etc
     - docker image
     - kubernetes

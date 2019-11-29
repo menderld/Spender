@@ -232,8 +232,8 @@ export const groupDataByCategory = function(transactions, categories){
 }
 
 export const saveToLocalStorage = function(config){
-    config = JSON.stringify(config)
-    ls.set(CONFIG_KEY, config)
+    let c = JSON.stringify(config)
+    ls.set(CONFIG_KEY, c)
 }
 
 export const getConfigFromLocalStorage = function(){
@@ -242,5 +242,10 @@ export const getConfigFromLocalStorage = function(){
         return c
     }
 
-    return JSON.parse(c)
+    try{
+        return JSON.parse(c)
+    }
+    catch{
+        return undefined
+    }
 }
