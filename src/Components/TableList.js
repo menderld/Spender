@@ -1,7 +1,7 @@
 import React from "react"
 import {XYPlot, VerticalGridLines, HorizontalGridLines, VerticalBarSeries, BarSeries, XAxis, YAxis} from 'react-vis'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import {getCategoryHierarchy, ListedCategories} from '../Helpers/helper'
+import {getCategoryHierarchy} from '../Helpers/helper'
 import * as Constants from '../Helpers/Constants'
 
 export default class TableList extends React.Component{

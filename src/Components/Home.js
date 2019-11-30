@@ -12,19 +12,19 @@ export default class Home extends React.Component {
             trans : store.getState().trans,
             on : false,
             isOpen: false,
-            priceConfig: store.getState().priceConfig
+            priceConfig: store.getState().priceConfig.getMapping()
         }
 
         store.subscribe(()=> {
-            if(this._isMounted && (this.state.trans != store.getState().trans || this.state.priceConfig != store.getState().priceConfig)){
-                this.setState({trans: store.getState().trans, priceConfig:store.getState().priceConfig})
+            if(this._isMounted && (this.state.trans != store.getState().trans || this.state.priceConfig != store.getState().priceConfig.getMapping())){
+                this.setState({trans: store.getState().trans, priceConfig:store.getState().priceConfig.getMapping()})
             }
         })
     }
 
     componentDidMount() {
         this._isMounted = true;
-        this.setState({trans: store.getState().trans, priceConfig:store.getState().priceConfig})
+        this.setState({trans: store.getState().trans, priceConfig:store.getState().priceConfig.getMapping()})
     }
 
     componentWillUnmount(){
@@ -32,6 +32,7 @@ export default class Home extends React.Component {
       }
 
     render(){
+        console.log(typeof(this.state.priceConfig))
         return (
                 <SpendingPieChart transactions={this.state.trans} priceConfig={this.state.priceConfig}/>
             );

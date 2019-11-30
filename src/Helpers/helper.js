@@ -1,7 +1,9 @@
 import ls from 'local-storage'
+import CatMapping from '../Models/CatMapping'
 
 export const CONFIG_KEY = "config"
 export const ENDING = "$";
+
 
 Array.prototype.contains = function(obj) {
     var i = this.length;
@@ -13,7 +15,7 @@ Array.prototype.contains = function(obj) {
     return false;
 }
 
-export const ListedCategories =
+const ListedCategories =
 {
     "gas": ["shell oil", "costco gas", "arco", "chevron 0"],
     "food": ["costco", "qfc", "safeway", "cafe", "bai tong", "mod pizza",  "gelato", "taco bell", "pho hoa", "senor taco", "torero", "burguer king",
@@ -248,4 +250,9 @@ export const getConfigFromLocalStorage = function(){
     catch{
         return undefined
     }
+}
+
+
+export const getDefaultCategories = function(){
+    return new CatMapping("root", ListedCategories)
 }

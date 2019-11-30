@@ -4,7 +4,8 @@ import { Provider } from 'react-redux'
 import Home from './Home'
 import PriceConfigEdit from './PriceConfigEdit'
 import SidebarLayout from './SidebarLayout'
-import {ListedCategories, getConfigFromLocalStorage} from '../Helpers/helper'
+import {getDefaultCategories, getConfigFromLocalStorage} from '../Helpers/helper'
+import CatMapping from '../Models/CatMapping'
 import {setTrans, setConfig} from '../actions/actions'
 import {store} from '../config'
 
@@ -36,7 +37,7 @@ export default class Main extends React.Component{
     this.onDataCompleted = this.onDataCompleted.bind(this);
 
     var config = getConfigFromLocalStorage();
-    store.dispatch(setConfig((config && config != 'undefined') ? config : ListedCategories));
+    store.dispatch(setConfig((config && config != 'undefined') ? new CatMapping("root", config) : getDefaultCategories()));
     store.dispatch(setTrans())
   }
 

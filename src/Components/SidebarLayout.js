@@ -33,7 +33,7 @@ export default class SidebarLayout extends Component {
                         <NavDropdown title="Config" id="basic-nav-dropdown">
                                 <Link to="/edit">Edit</Link>
 
-                            <NavDropdown.Item href="#action/3.2" onClick={()=> saveToLocalStorage(store.getState().priceConfig)}>Save to Local Storage</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2" onClick={()=> saveToLocalStorage(store.getState().priceConfig.getMapping())}>Save to Local Storage</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Save to file</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>

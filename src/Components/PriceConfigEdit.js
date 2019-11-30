@@ -8,6 +8,7 @@ import SaveFileModalComponent from './SaveFileModalComponent'
 var ace = require('ace-builds')
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
+import CatMapping from "../Models/CatMapping";
 
 
 export default class PriceConfigEdit extends React.Component {
@@ -22,7 +23,7 @@ export default class PriceConfigEdit extends React.Component {
 
         this.state = {
             currentKey: "",
-            currentConfig: this.prettyJson(store.getState().priceConfig),
+            currentConfig: this.prettyJson(store.getState().priceConfig.getMapping()),
             showModal: false
         }
     }
@@ -50,8 +51,7 @@ export default class PriceConfigEdit extends React.Component {
 
     saveConfig(config){
         try{
-            let c = JSON.parse(config)
-            store.dispatch(setConfig(c));
+            store.dispatch(setConfig(new CatMapping(store.getState().priceConfig.id, JSON.parse(config))));
             return true
         }
         catch(error){

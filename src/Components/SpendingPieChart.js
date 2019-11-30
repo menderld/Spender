@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react'
 import {RadialChart, Hint, LabelSeries, makeVisFlexible} from 'react-vis';
 import TableList from './TableList'
-import {groupDataByCategory, ListedCategories} from '../Helpers/helper'
+import {groupDataByCategory} from '../Helpers/helper'
 import * as Constants from '../Helpers/Constants'
 
 const FlexRadialChart=makeVisFlexible(RadialChart)
