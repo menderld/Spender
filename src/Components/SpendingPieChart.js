@@ -23,6 +23,7 @@ export default class SpendingPieChart extends React.Component{
         this.groupData = this.groupData.bind(this);
         this.onPieHover = this.onPieHover.bind(this);
         this.onClick = this.onClick.bind(this);
+        this._selectElementFromLabel = this._selectElementFromLabel.bind(this);
     }
 
     componentDidUpdate(prevProps){
@@ -37,10 +38,10 @@ export default class SpendingPieChart extends React.Component{
 
     onPieHover(v){
         this.setState({value: v});
+        this._selectElementFromLabel(v.label)
     }
 
-    onClick(v){
-        let label = v.label;
+    _selectElementFromLabel(label){
         let res = this.state.groupedData;
         const data = this.state.itemsByCat;
 
@@ -53,6 +54,9 @@ export default class SpendingPieChart extends React.Component{
             }
         }
         this.setState({transactions:res, currentLabel:label});
+    }
+
+    onClick(v){
     }
 
     groupData(){
