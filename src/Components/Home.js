@@ -1,30 +1,31 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from "react";
 import SpendingPieChart from './SpendingPieChart'
-import {store} from '../config'
+import * as comandante from '../config'
 
 export default class Home extends React.Component {
     constructor(props){
         super(props);
-
         this._isMounted= true
         this.state = {
-            trans : store.getState().trans,
+            trans : comandante.getTransactions(),
             on : false,
             isOpen: false,
-            priceConfig: store.getState().priceConfig.getMapping()
+            priceConfig: comandante.getCurrentConfig().getMapping()
         }
 
-        store.subscribe(()=> {
-            if(this._isMounted && (this.state.trans != store.getState().trans || this.state.priceConfig != store.getState().priceConfig.getMapping())){
-                this.setState({trans: store.getState().trans, priceConfig:store.getState().priceConfig.getMapping()})
+        comandante.store.subscribe(()=> {
+            if(this._isMounted && (this.state.trans != comandante.getTransactions()
+                                  || this.state.priceConfig != comandante.getCurrentConfig().getMapping())){
+                console.log(comandante.store.getState())
+                this.setState({trans:comandante.getTransactions(), priceConfig:comandante.getCurrentConfig().getMapping()})
             }
         })
     }
 
     componentDidMount() {
         this._isMounted = true;
-        this.setState({trans: store.getState().trans, priceConfig:store.getState().priceConfig.getMapping()})
+        this.setState({trans: comandante.getTransactions(), priceConfig:comandante.getCurrentConfig().getMapping()})
     }
 
     componentWillUnmount(){
@@ -32,7 +33,6 @@ export default class Home extends React.Component {
       }
 
     render(){
-        console.log(typeof(this.state.priceConfig))
         return (
                 <SpendingPieChart transactions={this.state.trans} priceConfig={this.state.priceConfig}/>
             );

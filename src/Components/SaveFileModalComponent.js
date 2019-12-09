@@ -19,11 +19,6 @@ export default class SaveFileModalComponent extends React.Component {
     }
 
     render(){
-        // handle = setInterval(()=> {
-        //     console.log(123)
-        //     this.setState({internalShow:false})
-        // }, this.state.wait)
-
         return (
             <div>
                 <Modal  dialogClassName={{"background-color":"red"}} show={this.state.internalShow} keyboard={true} onClick={()=> console.log("click")} onHide={() => this.hide()}>

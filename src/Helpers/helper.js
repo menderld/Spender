@@ -199,9 +199,9 @@ function getDay(d){
 
 
 export const groupDataByCategory = function(transactions, categories){
-    if(!transactions || transactions.length == 0)
+    if(!transactions || transactions.length == 0 || categories == undefined || Object.keys(categories).length === 0)
     {
-        return;
+        return [{}]
     }
 
     let expenses = {};

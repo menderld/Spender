@@ -6,29 +6,13 @@ import PriceConfigEdit from './PriceConfigEdit'
 import SidebarLayout from './SidebarLayout'
 import {getDefaultCategories, getConfigFromLocalStorage} from '../Helpers/helper'
 import CatMapping from '../Models/CatMapping'
-import {setTrans, setConfig} from '../actions/actions'
+import {setTrans, addConfig} from '../actions/actions'
 import {store} from '../config'
 
 import {
   BrowserRouter,
   Route,
-  Switch,
-  Link,
-  Redirect,
 } from "react-router-dom";
-
-
-// const mapStateToProps = function(state){
-//   return {
-//      trans: state.trans,
-//   }
-// }
-
-// const mapDispatchToProps = dispatch => ({
-// ...setTrans,
-// dispatch                // ← Add this
-// })
-
 
 export default class Main extends React.Component{
   constructor(props){
@@ -37,8 +21,7 @@ export default class Main extends React.Component{
     this.onDataCompleted = this.onDataCompleted.bind(this);
 
     var config = getConfigFromLocalStorage();
-    store.dispatch(setConfig((config && config != 'undefined') ? new CatMapping("root", config) : getDefaultCategories()));
-    store.dispatch(setTrans())
+    store.dispatch(addConfig("root", (config && config != 'undefined') ?  config : getDefaultCategories().getMapping()));
   }
 
   onDataCompleted(transactions){

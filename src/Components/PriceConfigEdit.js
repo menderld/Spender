@@ -1,15 +1,14 @@
 import React from "react";
 import AceEditor from "react-ace";
 import {Collapse} from 'react-collapse';
-import {setConfig} from '../actions/actions'
-import {store} from '../config'
+import {replaceConfig} from '../actions/actions'
+import * as comandante from '../config'
 import SaveFileModalComponent from './SaveFileModalComponent'
 
 var ace = require('ace-builds')
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import CatMapping from "../Models/CatMapping";
-
 
 export default class PriceConfigEdit extends React.Component {
     constructor(props){
@@ -23,7 +22,7 @@ export default class PriceConfigEdit extends React.Component {
 
         this.state = {
             currentKey: "",
-            currentConfig: this.prettyJson(store.getState().priceConfig.getMapping()),
+            currentConfig: this.prettyJson(comandante.getCurrentConfig().getMapping()),
             showModal: false
         }
     }
@@ -51,11 +50,11 @@ export default class PriceConfigEdit extends React.Component {
 
     saveConfig(config){
         try{
-            store.dispatch(setConfig(new CatMapping(store.getState().priceConfig.id, JSON.parse(config))));
+            comandante.store.dispatch(replaceConfig(comandante.getCurrentConfig().key, JSON.parse(config)));
             return true
         }
         catch(error){
-            console.log("cannot save json")
+            console.log(`cannot save json: ${error}`)
             return false
         }
     }

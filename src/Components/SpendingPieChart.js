@@ -3,7 +3,12 @@ import React from 'react'
 import {RadialChart, Hint, LabelSeries, makeVisFlexible} from 'react-vis';
 import TableList from './TableList'
 import {groupDataByCategory} from '../Helpers/helper'
+import {replaceConfig, addToHistory, setTrans, popHistory} from '../actions/actions'
 import * as Constants from '../Helpers/Constants'
+import * as comandante from '../config';
+import {Button} from 'react-bootstrap';
+
+
 
 const FlexRadialChart=makeVisFlexible(RadialChart)
 
@@ -23,6 +28,7 @@ export default class SpendingPieChart extends React.Component{
         this.groupData = this.groupData.bind(this);
         this.onPieHover = this.onPieHover.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.goBack = this.goBack.bind(this);
         this._selectElementFromLabel = this._selectElementFromLabel.bind(this);
     }
 
@@ -57,6 +63,13 @@ export default class SpendingPieChart extends React.Component{
     }
 
     onClick(v){
+        let newKey = comandante.getCurrentConfig().getKey() + "|" + v.label;
+        let factory = comandante.getFactory();
+        let mapping = factory.getOrCreateMapping(newKey);
+
+        //update config and transactions
+        comandante.store.dispatch(replaceConfig(newKey, mapping));
+        comandante.store.dispatch(addToHistory(newKey, this.state.itemsByCat[v.label]));
     }
 
     groupData(){
@@ -78,11 +91,18 @@ export default class SpendingPieChart extends React.Component{
         this.setState({dataToShow:finalResult, groupedData:expensesByCat, totalExpenses:totalExpenses, transactions:transactions, itemsByCat: itemsByCat});
     }
 
+    goBack(){
+        comandante.store.dispatch(popHistory())
+    }
+
     render(){
         return (
                 <div>
                      <div className="row align-items-start">
                         <div className="col-4">
+                            <Button variant="secondary" onClick={()=>this.goBack()}>
+                                Go Back
+                            </Button>
                         </div>
                         <div className="col-4" >
                             <FlexRadialChart
@@ -94,6 +114,7 @@ export default class SpendingPieChart extends React.Component{
                                 onValueMouseOver={v => this.onPieHover(v)}
                                 onSeriesMouseOut={v => this.setState({value: false})}
                                 onValueClick={v=> this.onClick(v)}
+                                onClick={()=>console.log(123)}
                                 width={300}
                                 height={300}
                                 padAngle={0.04}

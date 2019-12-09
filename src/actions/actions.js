@@ -3,7 +3,24 @@ export const setTrans = trans => ({
     trans
   })
 
-  export const setConfig = priceConfig => ({
-    type: 'SET_PRICE_CONFIG',
-    priceConfig
-  })
+export const addConfig = (key, priceConfig) => ({
+  type: 'ADD_CONFIG',
+  priceConfig,
+  key
+})
+
+export const replaceConfig = (key, priceConfig) => ({
+  type: 'REPLACE_CONFIG',
+  priceConfig,
+  key
+})
+
+export const addToHistory = (key, transactions) => ({
+  type: 'ADD_TO_HISTORY',
+  key,
+  transactions
+})
+
+export const popHistory = () => ({
+  type: 'POP_HISTORY'
+})

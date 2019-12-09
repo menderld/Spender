@@ -1,11 +1,15 @@
 
 export default class CatMapping{
-    constructor(id, mapping){
-        this.id = id;
+    constructor(key, mapping){
+        this.key = key;
         this.mapping = mapping;
     }
 
     getMapping(){
         return this.mapping;
+    }
+
+    getKey(){
+        return this.key
     }
 }
