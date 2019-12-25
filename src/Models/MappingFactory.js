@@ -1,9 +1,21 @@
 import CatMapping from './CatMapping'
 
 export default class MappingFactory{
-    constructor(){
-        this.data = {};
+    constructor(data){
+        this.data = data === undefined ? {} : MappingFactory.Deserialize(data);
         this.getOrCreateMapping = this.getOrCreateMapping.bind(this);
+    }
+
+    static Deserialize(data){
+        console.log("data")
+        console.log(data)
+        let res = {}
+        for(var key in data){
+            res[key] = new CatMapping(key, data[key].mapping)
+        }
+        console.log("res")
+        console.log(res)
+        return res
     }
 
     getOrCreateMapping(key){
@@ -20,6 +32,7 @@ export default class MappingFactory{
         if(key in this.data){
             return this.data[key];
         }
+
         return undefined
     }
 

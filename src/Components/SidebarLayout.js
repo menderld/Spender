@@ -2,8 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavItem, Button, NavDropdown, Form, FormControl} from 'react-bootstrap';
 import React, {Component} from 'react';
 import FileUpload from './FileUpload'
-import {saveToLocalStorage} from '../Helpers/helper'
-import {store} from '../config';
+import {saveMappingFactoryToLocalStorage} from '../Helpers/helper'
+import * as comandante from '../config';
 import {Link} from "react-router-dom";
 
 export default class SidebarLayout extends Component {
@@ -33,7 +33,7 @@ export default class SidebarLayout extends Component {
                         <NavDropdown title="Config" id="basic-nav-dropdown">
                                 <Link to="/edit">Edit</Link>
 
-                            <NavDropdown.Item href="#action/3.2" onClick={()=> saveToLocalStorage(store.getState().priceConfig.getMapping())}>Save to Local Storage</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2" onClick={()=> saveMappingFactoryToLocalStorage(comandante.getFactory())}>Save to Local Storage</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Save to file</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>

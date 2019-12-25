@@ -24,3 +24,12 @@ export const addToHistory = (key, transactions) => ({
 export const popHistory = () => ({
   type: 'POP_HISTORY'
 })
+
+export const cleanStore = () => ({
+  type: 'CLEAN_STORE'
+})
+
+export const createMappingConfig = (mappingConfig) => ({
+  type: 'CREATE_MAPPING_CONFIG',
+  mappingConfig
+})

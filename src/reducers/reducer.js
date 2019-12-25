@@ -4,10 +4,19 @@ const initialState = {
   trans: [],
   configHistory: [],
   transHistory: [],
-  factory: new MappingFactory()
+  factory: new MappingFactory(undefined)
 }
 
 export function setTransactions(state=initialState, action) {
+  if(action.type == "CLEAN_STORE"){
+    return initialState
+  }
+
+  if(action.type == "CREATE_MAPPING_CONFIG"){
+    let factory = new MappingFactory(action.mappingConfig)
+    return {...initialState, factory: factory, configHistory: ["root"]}
+  }
+
   if(action.type == "SET_TRANSACTIONS"){
     return {...state, trans:action.trans, transHistory: state.transHistory.concat([action.trans])}
   }

@@ -2,6 +2,7 @@ import ls from 'local-storage'
 import CatMapping from '../Models/CatMapping'
 
 export const CONFIG_KEY = "config"
+export const MAPPING_FACTORY_KEY = "MappingConfig"
 export const ENDING = "$";
 
 
@@ -236,6 +237,25 @@ export const groupDataByCategory = function(transactions, categories){
 export const saveToLocalStorage = function(config){
     let c = JSON.stringify(config)
     ls.set(CONFIG_KEY, c)
+}
+
+export const saveMappingFactoryToLocalStorage = function(mappingFactory){
+    let c = JSON.stringify(mappingFactory)
+    ls.set(MAPPING_FACTORY_KEY, c)
+}
+
+export const getMappingFactoryFromLocalStorage = function(){
+    let c = ls.get(MAPPING_FACTORY_KEY)
+    if(c == 'undefined'){
+        return c
+    }
+
+    try{
+        return JSON.parse(c)["data"]
+    }
+    catch{
+        return undefined
+    }
 }
 
 export const getConfigFromLocalStorage = function(){

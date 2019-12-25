@@ -4,9 +4,9 @@ import { Provider } from 'react-redux'
 import Home from './Home'
 import PriceConfigEdit from './PriceConfigEdit'
 import SidebarLayout from './SidebarLayout'
-import {getDefaultCategories, getConfigFromLocalStorage} from '../Helpers/helper'
+import {getDefaultCategories, getMappingFactoryFromLocalStorage} from '../Helpers/helper'
 import CatMapping from '../Models/CatMapping'
-import {setTrans, addConfig} from '../actions/actions'
+import {setTrans, addConfig, createMappingConfig, cleanStore} from '../actions/actions'
 import {store} from '../config'
 
 import {
@@ -20,11 +20,14 @@ export default class Main extends React.Component{
 
     this.onDataCompleted = this.onDataCompleted.bind(this);
 
-    var config = getConfigFromLocalStorage();
-    store.dispatch(addConfig("root", (config && config != 'undefined') ?  config : getDefaultCategories().getMapping()));
+    var config = getMappingFactoryFromLocalStorage();
+    config = config == undefined ? {"root": getDefaultCategories().getMapping()} : config
+    console.log(config)
+    store.dispatch(createMappingConfig(config));
   }
 
   onDataCompleted(transactions){
+    //store.dispatch(cleanStore())
     store.dispatch(setTrans(transactions));
 }
 

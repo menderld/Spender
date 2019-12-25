@@ -2,7 +2,6 @@ UI style
     - better style for navbar
 
 Functionalities:
-    - nested levels of json config
     - save json
         - to machine
     - give color(green-red) to modal on save
@@ -22,7 +21,12 @@ Functionalities:
 
 --------DONE-----------
     - save config with cntrl+s
+    - clean store on file upload
     - save json
         - to localstorage
     - keep chart when page changes
     - pop up on json save(fail or success)
+    - nested levels of json config
+    - save all config levels
+
+

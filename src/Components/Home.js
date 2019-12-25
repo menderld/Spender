@@ -17,7 +17,6 @@ export default class Home extends React.Component {
         comandante.store.subscribe(()=> {
             if(this._isMounted && (this.state.trans != comandante.getTransactions()
                                   || this.state.priceConfig != comandante.getCurrentConfig().getMapping())){
-                console.log(comandante.store.getState())
                 this.setState({trans:comandante.getTransactions(), priceConfig:comandante.getCurrentConfig().getMapping()})
             }
         })
