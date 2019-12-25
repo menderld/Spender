@@ -7,14 +7,10 @@ export default class MappingFactory{
     }
 
     static Deserialize(data){
-        console.log("data")
-        console.log(data)
         let res = {}
         for(var key in data){
             res[key] = new CatMapping(key, data[key].mapping)
         }
-        console.log("res")
-        console.log(res)
         return res
     }
 

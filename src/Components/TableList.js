@@ -16,21 +16,22 @@ export default class TableList extends React.Component{
 
     render(){
         let trans = this.props.trans;
-
         let rows = [];
+        let i = 0;
         trans.forEach(function(element){
             rows.push(
                 {
-                    key: rows.length,
+                    key: i,
                     Description: element.Description,
                     Price: element.Price,
                     Date: element.TransDate
                 });
+                i += 1
         });
 
         return <div>
-            <BootstrapTable data={rows} striped hover options={this.options}>
-                <TableHeaderColumn isKey dataSort={true} width="300" dataField="Description">Description</TableHeaderColumn>
+            <BootstrapTable data={rows} striped hover options={this.options} keyField='key'>
+                <TableHeaderColumn dataSort={true} width="300" dataField="Description">Description</TableHeaderColumn>
                 <TableHeaderColumn dataField="Price" width="100" dataSort={true}>Price</TableHeaderColumn>
                 <TableHeaderColumn dataField="Date" width="200" dataSort={true}>Date</TableHeaderColumn>
             </BootstrapTable>

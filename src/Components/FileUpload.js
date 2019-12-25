@@ -53,7 +53,13 @@ export default class FileUpload extends React.Component{
 
     render() {
         return (
-            <FormControl className="login-input" className="mr-sm-2" placeholder="Upload" type="file" onChange={(e) => this.handleFile(e.target.files[0])}/>
+            <FormControl
+                className="login-input"
+                className="mr-sm-2"
+                placeholder="Upload"
+                type="file"
+                onChange={(e) => this.handleFile(e.target.files[0])}
+            />
         );
     }
 }

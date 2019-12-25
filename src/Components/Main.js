@@ -22,7 +22,6 @@ export default class Main extends React.Component{
 
     var config = getMappingFactoryFromLocalStorage();
     config = config == undefined ? {"root": getDefaultCategories().getMapping()} : config
-    console.log(config)
     store.dispatch(createMappingConfig(config));
   }
 
@@ -33,14 +32,16 @@ export default class Main extends React.Component{
 
   render(){
     return (
-      <Provider store={store}>
-        <BrowserRouter>
-           <SidebarLayout onDataCompleted={this.onDataCompleted}>
-                <Route exact path="/" render={(props) => <Home {...props} />} />
-                <Route exact path="/edit" render={(props) => <PriceConfigEdit {...props} on={true}/> } />
-           </SidebarLayout>
-        </BrowserRouter>
-      </Provider>
+      <div>
+        <Provider store={store}>
+          <BrowserRouter>
+              <SidebarLayout onDataCompleted={this.onDataCompleted}>
+                  <Route exact path="/" render={(props) => <Home {...props} />} />
+                  <Route exact path="/edit" render={(props) => <PriceConfigEdit {...props} on={true}/> } />
+              </SidebarLayout>
+          </BrowserRouter>
+        </Provider>
+      </div>
     )
   }
 }

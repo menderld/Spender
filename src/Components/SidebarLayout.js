@@ -4,9 +4,9 @@ import React, {Component} from 'react';
 import FileUpload from './FileUpload'
 import {saveMappingFactoryToLocalStorage} from '../Helpers/helper'
 import * as comandante from '../config';
-import {Link} from "react-router-dom";
+import { withRouter } from 'react-router'
 
-export default class SidebarLayout extends Component {
+class SidebarLayout extends Component {
 
     constructor(props) {
         super(props);
@@ -22,21 +22,19 @@ export default class SidebarLayout extends Component {
     }
 
     render() {
+        const history = this.props.history;
         return (
             <div className="container" style={{position:"relative"}}>
                  <Navbar bg="light" expand="lg">
-                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Brand href="#home">Spender</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                        <Link to="/">Home</Link>
+                        <Nav.Link onClick={()=> history.push("/")}>Home</Nav.Link>
                         <NavDropdown title="Config" id="basic-nav-dropdown">
-                                <Link to="/edit">Edit</Link>
-
-                            <NavDropdown.Item href="#action/3.2" onClick={()=> saveMappingFactoryToLocalStorage(comandante.getFactory())}>Save to Local Storage</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Save to file</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=> history.push("/edit")}>Edit</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=> saveMappingFactoryToLocalStorage(comandante.getFactory())}>Save to Local Storage</NavDropdown.Item>
+                            <NavDropdown.Item >Save to file</NavDropdown.Item>
                         </NavDropdown>
                         </Nav>
                         <Form inline>
@@ -49,3 +47,5 @@ export default class SidebarLayout extends Component {
         );
     }
 }
+
+export default withRouter(SidebarLayout)

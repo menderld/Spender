@@ -63,6 +63,9 @@ export default class SpendingPieChart extends React.Component{
     }
 
     onClick(v){
+        if(v.label === "empty"){
+            return;
+        }
         let newKey = comandante.getCurrentConfig().getKey() + "|" + v.label;
         let factory = comandante.getFactory();
         let mapping = factory.getOrCreateMapping(newKey);
@@ -100,11 +103,11 @@ export default class SpendingPieChart extends React.Component{
                 <div>
                      <div className="row align-items-start">
                         <div className="col-4">
+                        </div>
+                        <div className="col-4" >
                             <Button variant="secondary" onClick={()=>this.goBack()}>
                                 Go Back
                             </Button>
-                        </div>
-                        <div className="col-4" >
                             <FlexRadialChart
                                 className={'SpendingPieChar'}
                                 innerRadius={100}
